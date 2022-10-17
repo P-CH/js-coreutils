@@ -9,6 +9,7 @@ This is a JavaScript utility package designed to make a programmers life a bit e
 - File Designator Grabber
 - Function that exits the program after leaving a message
 - Colored Text Printer (for CLI)
+- Generator for standard set of characters (ASCII 32 through 126)
 
 ## Import Utilities
 
@@ -158,3 +159,11 @@ The "fg" and "bg" stand for "foreground" and "background" and therefore define i
 - magenta
 - cyan
 - white
+
+### Characters
+
+The Characters variable contains an array of the ASCII characters with DEC 32 to 126 (so " " to "~")
+
+```js
+Characters[0] //returns the space character
+```

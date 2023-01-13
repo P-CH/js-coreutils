@@ -1,6 +1,6 @@
 # Coreutils
 
-Created by P-CH. 2022
+Created by P-CH. 2023
 
 Disclaimer: If you run into any understanding issues, make sure to hit me up... (Discord: P-CH.#4795)
 
@@ -9,6 +9,8 @@ This is a JavaScript utility package designed to make a programmers life a bit e
 - File Designator Grabber
 - Function that exits the program after leaving a message
 - Colored Text Printer (for CLI)
+- Difference Calculator for two numbers
+- Stdin reader
 - Generator for standard set of characters (ASCII 32 through 126)
 
 ## Import Utilities
@@ -159,6 +161,28 @@ The "fg" and "bg" stand for "foreground" and "background" and therefore define i
 - magenta
 - cyan
 - white
+
+
+### Diff
+
+This function takes in two numeric values and returns the difference between them.
+
+```js
+Diff(102, -4) //returns 106
+```
+
+
+### Stdin
+
+Getting a users input in JavaScript is not all that pleasant, Stdin allows you to do just that easily.
+
+```js
+async function main(){
+    let input = await Stdin();
+    console.log(input);
+}
+```
+
 
 ### Characters
 

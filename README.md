@@ -29,8 +29,9 @@ let CliCP = require("./coreutils/main.js").CliColorPrint; //imports CliColorPrin
 Firstly, create an instance of the class:
 
 ```js
-let parser = new Parser();
+let parser = new Parser(env);
 ```
+where ``env`` should be the environment you want to parse, for example ``process.argv`` to parse from the command line.
 
 #### Help
 

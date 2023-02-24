@@ -2,6 +2,9 @@
 let fs = require("fs");
 
 class Parser{
+    constructor(env){
+        this.env = env;
+    }
     /**
      * Message to be displayed when ``Parser.showhelp()`` is called
      */
@@ -21,7 +24,7 @@ class Parser{
      * @returns {string=}
      */
     finder(call){
-        return process.argv.indexOf(call) == -1 ? undefined : process.argv.slice(2)?.[process.argv.slice(2)?.indexOf(call) + 1];
+        return this.env.indexOf(call) == -1 ? undefined : this.env.slice(2)?.[this.env.slice(2)?.indexOf(call) + 1];
     }
     /**
      * Configures the parser, overwrites the previous configuration (if any)
@@ -43,7 +46,7 @@ class Parser{
      * @param {object} parserobj
      */
     set(parserobj){
-        for(let o of Object.keys(this)) if(o != "help") delete this[o];
+        for(let o of Object.keys(this)) if(o != "help" && o != "env") delete this[o];
         this.add(parserobj);
     }
     /**
@@ -75,9 +78,9 @@ class Parser{
      * @returns {string}
      */
     get(name){
-        if(this[name]?.["type"] == "toggle") return process.argv.includes(this[name]["call"]);
+        if(this[name]?.["type"] == "toggle") return this.env.includes(this[name]["call"]);
         let check = this[name]?.["type"] == "bool" ? this[name]["check"] : this[name]?.["check"].test(this.finder(this[name]?.["call"]));
-        return process.argv.includes(this[name]?.["call"]) && check ? this.finder(this[name]["call"]) : this[name]?.["default"]
+        return this.env.includes(this[name]?.["call"]) && check ? this.finder(this[name]["call"]) : this[name]?.["default"]
     }
     /**
      * 

@@ -69,11 +69,11 @@ class Parser{
      * @param {object} parserobj 
      */
     add(parserobj){
-        Object.entries(parserobj).forEach(pobj => {["call", "desc", "type", "check", "default"].forEach(key => {if(!Object.keys(pobj[1]).includes(key)) ExitMsg(`Error: Property "${key}" missing on parserobject "${pobj[0]}"`)})});
+        Object.entries(parserobj).forEach(pobj => {["call", "desc", "type", "check", "default"].forEach(key => {if(!Object.keys(pobj[1]).includes(key)) ExitMsg(`Error: Property "${key}" missing in parserobject "${pobj[0]}"`)})});
         for(let o of Object.keys(parserobj)) this[o] = parserobj[o];
     }
     /**
-     * 
+     * Gets the parsed value for a certain tag
      * @param {string} name 
      * @returns {string}
      */
@@ -83,7 +83,15 @@ class Parser{
         return this.env.includes(this[name]?.["call"]) && check ? this.finder(this[name]["call"]) : this[name]?.["default"]
     }
     /**
-     * 
+     * Gets the parsed values for all supplied tags
+     * @param {string[]}
+     * @returns {string[]}
+     */
+    getA(names){
+        return names.map(name => this.get(name));
+    }
+    /**
+     * Returns the set property value for the supplied parser object and property
      * @param {string} name 
      * @param {string=} prop 
      * @returns {object | string}

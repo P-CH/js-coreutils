@@ -1,7 +1,7 @@
-//Written by P-CH. 2023
+//Written by P-CH. 2023-2025
 let fs = require("fs");
 
-class Parser{
+export class Parser{
     constructor(env){
         this.env = env;
     }
@@ -102,10 +102,10 @@ class Parser{
 }
 /**
  * Gets the file designator of the file supplied
- * @param {PathLike<string>} file
+ * @param {fs.PathLike} file
  * @returns {string}
  */
-let FileD = file => {
+export let FileD = file => {
     let f = fs.lstatSync(file);
     try {
         return Object.entries({
@@ -123,7 +123,7 @@ let FileD = file => {
  * @param {string} msg 
  * @param {number} exitcode 
  */
-let ExitMsg = (msg, exitcode = 0) => {
+export let ExitMsg = (msg, exitcode = 0) => {
     CliColorPrint(msg);
     process.exit(exitcode);
 }
@@ -131,7 +131,7 @@ let ExitMsg = (msg, exitcode = 0) => {
  * Prints the supplied text in the console, but replaces color tags with the escaped character set for the corrosponding color
  * @param {string} text 
  */
-let CliColorPrint = text => {
+export let CliColorPrint = text => {
     let colors = {
         "<!fgblack>": "\x1b[30m",
         "<!fgred>": "\x1b[31m",
@@ -159,7 +159,7 @@ let CliColorPrint = text => {
  * @param {number} v2 
  * @returns {number}
  */
-let Diff = (v1, v2) => (v1 < v2 ? [v1, v2] : [v2, v1]).reduce((v1, v2) => v2 - v1);
+export let Diff = (v1, v2) => (v1 < v2 ? [v1, v2] : [v2, v1]).reduce((v1, v2) => v2 - v1);
 /**
  * Returns the input the user supplied via the standard input.
  * Usage:
@@ -171,12 +171,12 @@ let Diff = (v1, v2) => (v1 < v2 ? [v1, v2] : [v2, v1]).reduce((v1, v2) => v2 - v
  * ```
  * @returns {string}
  */
-let Stdin = async () => await new Promise(res => require("readline").createInterface(process.stdin).question("", input => res(input)));
+export let Stdin = async () => await new Promise(res => require("readline").createInterface(process.stdin).question("", input => res(input)));
 /**
  * Returns a list of all standard printable characters (ASCII 32 through 126)
  * @returns {string[]}
  */
-let Characters = Object.keys([...Array(95).keys()]).map(key => String.fromCharCode(parseInt(key) + 32));
+export let Characters = Object.keys([...Array(95).keys()]).map(key => String.fromCharCode(parseInt(key) + 32));
 
 
 module.exports = {Parser, FileD, ExitMsg, CliColorPrint, Diff, Stdin, Characters}

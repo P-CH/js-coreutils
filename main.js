@@ -84,7 +84,7 @@ class Parser{
     }
     /**
      * Gets the parsed values for all supplied tags
-     * @param {string[]}
+     * @param {string[]} names
      * @returns {string[]}
      */
     getA(names){
@@ -94,7 +94,7 @@ class Parser{
      * Returns the set property value for the supplied parser object and property
      * @param {string} name 
      * @param {string=} prop 
-     * @returns {object | string}
+     * @returns {object|string}
      */
     show(name, prop){
         return prop ? this[name][prop] : this[name];
@@ -103,17 +103,19 @@ class Parser{
 /**
  * Gets the file designator of the file supplied
  * @param {PathLike<string>} file
+ * @returns {string}
  */
 let FileD = file => {
+    let f = fs.lstatSync(file);
     try {
-        let f = fs.lstatSync(file);
-        if(f.isDirectory()) return "d";
-        else if(f.isSymbolicLink()) return "l";
-        else if(f.isFIFO()) return "p";
-        else if(f.isSocket()) return "s";
-        else if(f.isBlockDevice()) return "b";
-        else if(f.isCharacterDevice()) return "c";
-        else return "-";
+        return Object.entries({
+            isDirectory: "d",
+            isSymbolicLink: "l",
+            isFIFO: "p",
+            isSocket: "s",
+            isBlockDevice: "b",
+            isCharacterDevice: "c"
+        }).reduce((type, key) => type = f[key[0]]() ? key[1] : type, undefined) || "-";
     } catch {return "?"}
 }
 /**
